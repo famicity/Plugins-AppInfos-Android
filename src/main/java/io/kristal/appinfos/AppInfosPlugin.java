@@ -106,7 +106,7 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
     }
 
     private synchronized static String getUniqueId(Context context) {
-        static String uniqueId = null;
+        String uniqueID = null;
         SharedPreferences sharedPrefs = context.getSharedPreferences(
                 PREF_UNIQUE_ID, Context.MODE_PRIVATE);
         uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
@@ -116,6 +116,6 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
             editor.putString(PREF_UNIQUE_ID, uniqueID);
             editor.commit();
         }
-        return uniqueId;
+        return uniqueID;
     }
 }
