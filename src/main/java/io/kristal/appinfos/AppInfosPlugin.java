@@ -30,9 +30,13 @@
 package io.kristal.appinfos;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
+import java.util.Locale;
 import fr.cobaltians.cobalt.Cobalt;
 import fr.cobaltians.cobalt.fragments.CobaltFragment;
 import fr.cobaltians.cobalt.plugin.CobaltAbstractPlugin;
@@ -111,7 +115,19 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
                 PREF_UNIQUE_ID, Context.MODE_PRIVATE);
         uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
         if (uniqueID == null) {
-            uniqueID = UUID.randomUUID().toString();
+            uniqueID = Settings.Secure.getString(mMainActivity.getContentResolver(), Settings.Secure.ANDROID_ID);
+            if (uniqueID == null || uniqueID.length() == 0 || "9774d56d682e549c".equals(uniqueID)) {
+                // old version of reto meier
+                //uniqueID = UUID.randomUUID().toString();
+                uniqueID = "35" + //we make this look like a valid IMEI
+                        Build.BOARD.length()%10+ Build.BRAND.length()%10 +
+                        Build.CPU_ABI.length()%10 + Build.DEVICE.length()%10 +
+                        Build.DISPLAY.length()%10 + Build.HOST.length()%10 +
+                        Build.ID.length()%10 + Build.MANUFACTURER.length()%10 +
+                        Build.MODEL.length()%10 + Build.PRODUCT.length()%10 +
+                        Build.TAGS.length()%10 + Build.TYPE.length()%10 +
+                        Build.USER.length()%10 ; //13 digits
+            }
             Editor editor = sharedPrefs.edit();
             editor.putString(PREF_UNIQUE_ID, uniqueID);
             editor.commit();
