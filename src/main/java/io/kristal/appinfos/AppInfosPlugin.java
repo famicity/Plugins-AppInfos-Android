@@ -51,6 +51,7 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
     private static final String ANDROID = "android";
     private static final String PLATFORM = "platform";
     private static final String DEVICE_ID = "deviceId";
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
 
 
     /*******************************************************************************************************
@@ -84,6 +85,7 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
                     data.put(VERSION_CODE, packageInfo.versionCode);
                     data.put(LANG, Locale.getDefault().getLanguage());
                     data.put(PLATFORM, ANDROID);
+                    data.put(DEVICE_ID, getUniqueId(ctx));
                     fragment.sendCallback(message.getString(Cobalt.kJSCallback),data);
                 }
                 catch (PackageManager.NameNotFoundException e) {
@@ -101,5 +103,19 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
                 exception.printStackTrace();
             }
         }
+    }
+
+    private synchronized static String getUniqueId(Context context) {
+        static String uniqueId = null;
+        SharedPreferences sharedPrefs = context.getSharedPreferences(
+                PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+        uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
+        if (uniqueID == null) {
+            uniqueID = UUID.randomUUID().toString();
+            Editor editor = sharedPrefs.edit();
+            editor.putString(PREF_UNIQUE_ID, uniqueID);
+            editor.commit();
+        }
+        return uniqueId;
     }
 }
