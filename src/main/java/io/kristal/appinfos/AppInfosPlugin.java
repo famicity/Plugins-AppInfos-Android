@@ -48,6 +48,7 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
     private static final String VERSION_NAME = "versionName";
     private static final String VERSION_CODE = "versionCode";
     private static final String LANG = "lang";
+    private static final String ANDROID = "android";
     private static final String PLATFORM = "platform";
     private static final String DEVICE_ID = "deviceId";
 
@@ -82,6 +83,7 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
                     data.put(VERSION_NAME, packageInfo.versionName);
                     data.put(VERSION_CODE, packageInfo.versionCode);
                     data.put(LANG, Locale.getDefault().getLanguage());
+                    data.put(PLATFORM, ANDROID);
                     fragment.sendCallback(message.getString(Cobalt.kJSCallback),data);
                 }
                 catch (PackageManager.NameNotFoundException e) {
