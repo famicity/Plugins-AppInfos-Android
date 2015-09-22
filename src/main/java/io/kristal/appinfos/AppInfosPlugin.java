@@ -115,7 +115,7 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
                 PREF_UNIQUE_ID, Context.MODE_PRIVATE);
         uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
         if (uniqueID == null) {
-            uniqueID = Settings.Secure.getString(mMainActivity.getContentResolver(), Settings.Secure.ANDROID_ID);
+            uniqueID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
             if (uniqueID == null || uniqueID.length() == 0 || "9774d56d682e549c".equals(uniqueID)) {
                 // old version of reto meier
                 //uniqueID = UUID.randomUUID().toString();
@@ -128,7 +128,7 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
                         Build.TAGS.length()%10 + Build.TYPE.length()%10 +
                         Build.USER.length()%10 ; //13 digits
             }
-            Editor editor = sharedPrefs.edit();
+            SharedPreferences.Editor editor = sharedPrefs.edit();
             editor.putString(PREF_UNIQUE_ID, uniqueID);
             editor.commit();
         }
