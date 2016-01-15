@@ -37,10 +37,10 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 import java.util.Locale;
-import fr.cobaltians.cobalt.Cobalt;
-import fr.cobaltians.cobalt.fragments.CobaltFragment;
-import fr.cobaltians.cobalt.plugin.CobaltAbstractPlugin;
-import fr.cobaltians.cobalt.plugin.CobaltPluginWebContainer;
+import org.cobaltians.cobalt.Cobalt;
+import org.cobaltians.cobalt.fragments.CobaltFragment;
+import org.cobaltians.cobalt.plugin.CobaltAbstractPlugin;
+import org.cobaltians.cobalt.plugin.CobaltPluginWebContainer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
