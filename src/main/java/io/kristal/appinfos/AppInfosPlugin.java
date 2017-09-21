@@ -70,7 +70,6 @@ public class AppInfosPlugin extends CobaltAbstractPlugin {
 
     public static CobaltAbstractPlugin getInstance(CobaltPluginWebContainer webContainer) {
         if (sInstance == null) sInstance = new AppInfosPlugin();
-        sInstance.addWebContainer(webContainer);
         return sInstance;
     }
 
